@@ -28,7 +28,7 @@ filters. Search for "ADJUST" in models/forsah_opportunity.py for anything
 still worth re-checking.
 """,
     'category': 'Sales/CRM',
-    'author': 'Abdulkaraim Osman, Bab International Corp For Specialized Services',
+    'author': 'leapai.ai',
     'website': 'https://leapai.ai',
     'support': 'sales@leapai.ai',
     'maintainer': 'LEAP AI',
