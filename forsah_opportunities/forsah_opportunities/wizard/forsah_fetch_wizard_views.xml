@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_forsah_fetch_wizard_form" model="ir.ui.view">
+        <field name="name">forsah.fetch.wizard.form</field>
+        <field name="model">forsah.fetch.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Fetch Forsah Opportunities Now">
+                <group>
+                    <field name="max_pages"/>
+                    <field name="page_size"/>
+                    <field name="category_ids" widget="many2many_tags"/>
+                    <field name="title_contains"/>
+                </group>
+                <footer>
+                    <button name="action_fetch_now" type="object" string="Fetch Now" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_forsah_fetch_wizard" model="ir.actions.act_window">
+        <field name="name">Fetch Opportunities Now</field>
+        <field name="res_model">forsah.fetch.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_forsah_fetch_now" name="Fetch Opportunities Now" parent="menu_forsah_root"
+              action="action_forsah_fetch_wizard" sequence="20"/>
+
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_forsah" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.forsah.opportunities</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Forsah Opportunities" string="Forsah Opportunities" name="forsah_opportunities"
+                     groups="forsah_opportunities.group_forsah_manager">
+                    <block title="Connection">
+                        <setting help="Confirmed public, no authentication required. Override only if the real base URL changes.">
+                            <field name="forsah_api_base"/>
+                        </setting>
+                        <setting>
+                            <button name="action_forsah_test_connection" type="object"
+                                    string="Test Connection" class="btn-secondary"/>
+                        </setting>
+                    </block>
+                    <block title="Sync">
+                        <setting help="Opportunities requested per API call.">
+                            <field name="forsah_page_size"/>
+                        </setting>
+                        <setting help="Maximum pages fetched per scheduled/manual sync run.">
+                            <field name="forsah_cron_pages"/>
+                        </setting>
+                        <setting help="Restrict the daily sync to specific categories. Leave empty to fetch all.">
+                            <field name="forsah_category_ids" widget="many2many_tags"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

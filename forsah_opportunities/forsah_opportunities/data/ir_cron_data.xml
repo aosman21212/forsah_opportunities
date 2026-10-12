@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!--
+        Daily sync. The Forsah API is public and confirmed working with no
+        auth, but this still defaults to INACTIVE so the first sync volume
+        (tens of thousands of opportunities exist) is a deliberate choice,
+        not a surprise on install. Activate from Settings > Technical >
+        Scheduled Actions, after tuning Settings > Forsah Opportunities
+        (Page Size / Pages per Sync) to a sane daily volume.
+    -->
+    <record id="ir_cron_forsah_opportunity_fetch" model="ir.cron">
+        <field name="name">Forsah Opportunities: Daily Sync</field>
+        <field name="model_id" ref="model_forsah_opportunity"/>
+        <field name="state">code</field>
+        <field name="code">model.action_scheduled_fetch()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False"/>
+    </record>
+
+</odoo>

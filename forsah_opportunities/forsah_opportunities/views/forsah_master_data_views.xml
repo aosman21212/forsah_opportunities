@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_forsah_category_tree" model="ir.ui.view">
+        <field name="name">forsah.category.tree</field>
+        <field name="model">forsah.category</field>
+        <field name="arch" type="xml">
+            <tree string="Categories">
+                <field name="name"/>
+                <field name="ext_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_forsah_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">forsah.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_forsah_city_tree" model="ir.ui.view">
+        <field name="name">forsah.city.tree</field>
+        <field name="model">forsah.city</field>
+        <field name="arch" type="xml">
+            <tree string="Delivery Cities">
+                <field name="name"/>
+                <field name="ext_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_forsah_city" model="ir.actions.act_window">
+        <field name="name">Delivery Cities</field>
+        <field name="res_model">forsah.city</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_forsah_config" name="Configuration" parent="menu_forsah_root"
+              sequence="90" groups="forsah_opportunities.group_forsah_manager"/>
+    <menuitem id="menu_forsah_categories" name="Categories" parent="menu_forsah_config"
+              action="action_forsah_category" sequence="10"/>
+    <menuitem id="menu_forsah_cities" name="Delivery Cities" parent="menu_forsah_config"
+              action="action_forsah_city" sequence="20"/>
+
+</odoo>

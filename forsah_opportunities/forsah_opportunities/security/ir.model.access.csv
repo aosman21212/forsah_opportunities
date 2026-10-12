@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_forsah_opportunity_user,forsah.opportunity.user,model_forsah_opportunity,group_forsah_user,1,1,1,0
+access_forsah_opportunity_manager,forsah.opportunity.manager,model_forsah_opportunity,group_forsah_manager,1,1,1,1
+access_forsah_category_user,forsah.category.user,model_forsah_category,group_forsah_user,1,0,0,0
+access_forsah_category_manager,forsah.category.manager,model_forsah_category,group_forsah_manager,1,1,1,1
+access_forsah_city_user,forsah.city.user,model_forsah_city,group_forsah_user,1,0,0,0
+access_forsah_city_manager,forsah.city.manager,model_forsah_city,group_forsah_manager,1,1,1,1
+access_forsah_fetch_wizard,forsah.fetch.wizard,model_forsah_fetch_wizard,group_forsah_user,1,1,1,1

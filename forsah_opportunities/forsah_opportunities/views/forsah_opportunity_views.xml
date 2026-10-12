@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_forsah_opportunity_tree" model="ir.ui.view">
+        <field name="name">forsah.opportunity.tree</field>
+        <field name="model">forsah.opportunity</field>
+        <field name="arch" type="xml">
+            <tree string="Forsah Opportunities" decoration-muted="state == 'closed'">
+                <field name="name"/>
+                <field name="reference" optional="show"/>
+                <field name="type_name" optional="show"/>
+                <field name="category_ids" widget="many2many_tags" optional="show"/>
+                <field name="city_ids" widget="many2many_tags" optional="hide"/>
+                <field name="value_min" optional="hide"/>
+                <field name="value_max" sum="Total Value Max"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="due_date"/>
+                <field name="bids_count" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'converted'"
+                       decoration-info="state == 'new'"
+                       decoration-muted="state == 'closed'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_forsah_opportunity_form" model="ir.ui.view">
+        <field name="name">forsah.opportunity.form</field>
+        <field name="model">forsah.opportunity</field>
+        <field name="arch" type="xml">
+            <form string="Forsah Opportunity">
+                <header>
+                    <button name="action_convert_to_opportunity" type="object"
+                            string="Convert to Opportunity" class="oe_highlight"
+                            invisible="crm_lead_id"/>
+                    <button name="action_fetch_detail" type="object"
+                            string="Fetch Full Detail"
+                            help="Fetch the reference number and any other detail-only fields for this opportunity."/>
+                    <button name="action_open_on_forsah" type="object"
+                            string="View on Forsah"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,in_progress,converted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Opportunity title"/></h1>
+                    </div>
+                    <group>
+                        <group name="main">
+                            <field name="opportunity_id_external"/>
+                            <field name="reference"/>
+                            <field name="type_name"/>
+                            <field name="status_key"/>
+                            <field name="category_ids" widget="many2many_tags"/>
+                            <field name="city_ids" widget="many2many_tags"/>
+                            <field name="publisher_type"/>
+                        </group>
+                        <group name="dates_values">
+                            <field name="value_range_name"/>
+                            <field name="value_min"/>
+                            <field name="value_max"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="publish_date"/>
+                            <field name="due_date"/>
+                            <field name="extended_due_date"/>
+                            <field name="close_date"/>
+                            <field name="award_date"/>
+                            <field name="opportunity_url" widget="url"/>
+                            <field name="crm_lead_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Activity" name="activity_stats">
+                        <field name="days_to_go"/>
+                        <field name="bids_count"/>
+                        <field name="submitted_bids_count"/>
+                        <field name="view_count"/>
+                        <field name="accepts_more_bids"/>
+                    </group>
+                    <group string="Technical" name="technical">
+                        <field name="last_synced_at" readonly="1"/>
+                        <field name="raw_data" readonly="1" groups="base.group_no_one"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_forsah_opportunity_search" model="ir.ui.view">
+        <field name="name">forsah.opportunity.search</field>
+        <field name="model">forsah.opportunity</field>
+        <field name="arch" type="xml">
+            <search string="Search Forsah Opportunities">
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="category_ids"/>
+                <field name="city_ids"/>
+                <separator/>
+                <filter string="New" name="filter_new" domain="[('state', '=', 'new')]"/>
+                <filter string="Converted" name="filter_converted" domain="[('state', '=', 'converted')]"/>
+                <filter string="Closed" name="filter_closed" domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter string="Due Date" name="filter_due_date" date="due_date"/>
+                <group string="Group By" expand="0">
+                    <filter string="Type" name="group_type" context="{'group_by': 'type_name'}"/>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_forsah_opportunity" model="ir.actions.act_window">
+        <field name="name">Opportunities</field>
+        <field name="res_model">forsah.opportunity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_forsah_opportunity_search"/>
+        <field name="context">{'search_default_filter_new': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No opportunities yet.
+            </p><p>
+                Opportunities synced from Forsah will show up here. Use
+                "Fetch Opportunities Now" to pull them manually, or
+                configure the daily sync in Settings.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_forsah_root" name="Forsah Opportunities" sequence="86"
+              web_icon="forsah_opportunities,static/description/icon.png"/>
+    <menuitem id="menu_forsah_main" name="Opportunities" parent="menu_forsah_root"
+              action="action_forsah_opportunity" sequence="10"/>
+
+</odoo>
